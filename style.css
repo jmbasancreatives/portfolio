@@ -344,18 +344,66 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--color-accent); 
 .tool:hover .tool__ic { transform: translateY(-3px) scale(1.05); }
 .tool span:last-child { font-size: .66rem; color: var(--color-muted); }
 
-/* Testimonials */
-.testi { position: relative; padding-top: .5rem; }
-.testi__quote { position: absolute; top: -1rem; left: -.25rem; font-family: Georgia, serif; font-size: 4rem; line-height: 1; color: rgba(124,58,237,.35); }
-.testi__body { color: #cbd5e1; font-size: .9rem; margin: 1.5rem 0 1.25rem; }
-.testi__person { display: flex; align-items: center; gap: .75rem; margin-bottom: .75rem; }
-.testi__avatar { width: 44px; height: 44px; border-radius: 50%; background: rgba(124,58,237,.18); display: grid; place-items: center; color: #C084FC; flex-shrink: 0; }
-.testi__name { display: block; font-weight: 600; font-size: .88rem; color: #60A5FA; }
-.testi__role { display: block; font-size: .74rem; color: var(--color-muted); }
-.testi__stars { display: flex; gap: .15rem; color: #FBBF24; margin-bottom: 1rem; }
-.testi__dots { display: flex; gap: .4rem; }
-.testi__dots span { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.2); }
-.testi__dots span.is-on { width: 20px; border-radius: 100px; background: var(--gradient-brand); }
+.project-card{
+    display:flex;
+    gap:1.5rem;
+    align-items:flex-start;
+    padding:1.5rem;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px;
+    background:rgba(255,255,255,.03);
+}
+
+.project-card__icon{
+    width:70px;
+    height:70px;
+    border-radius:16px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,#6366f1,#8b5cf6);
+    color:#fff;
+    flex-shrink:0;
+}
+
+.project-card__title{
+    margin:0 0 .75rem;
+    font-size:1.35rem;
+    font-weight:700;
+}
+
+.project-card__description{
+    margin-bottom:1rem;
+    line-height:1.7;
+    color:var(--text-muted,#b8c0cc);
+}
+
+.project-card__tech{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.6rem;
+    margin-bottom:1.5rem;
+}
+
+.project-card__tech span{
+    padding:.35rem .8rem;
+    border-radius:999px;
+    background:rgba(99,102,241,.15);
+    border:1px solid rgba(99,102,241,.25);
+    font-size:.85rem;
+    font-weight:600;
+}
+
+.project-card__btn{
+    display:inline-flex;
+    align-items:center;
+    gap:.5rem;
+}
+
+@media (max-width:768px){
+    .project-card{
+        flex-direction:column;
+    }
+}
 
 /* ---------- Contact banner ---------- */
 .contact-banner {
