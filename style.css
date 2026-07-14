@@ -34,6 +34,28 @@ html { scroll-behavior: smooth; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
 
+.site-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.site-logo__image {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  object-position: center 30%;
+  border: 2px solid #38e8ff;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(56, 232, 255, 0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.site-logo:hover .site-logo__image {
+  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(56, 232, 255, 0.65);
+}
+
 body {
   background: var(--color-bg);
   color: var(--color-text);
