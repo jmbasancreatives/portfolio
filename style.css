@@ -121,11 +121,6 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--color-accent); 
 .nav.is-scrolled { background: rgba(5,8,22,.8); backdrop-filter: blur(16px); padding: .7rem 1.5rem; border-bottom-color: var(--color-panel-border); }
 .nav__inner { max-width: 1340px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
 .nav__brand { display: flex; align-items: center; gap: .65rem; }
-.nav__mark {
-  font-family: var(--font-display); font-weight: 700; font-size: 1.05rem;
-  width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center;
-  background: var(--gradient-brand); flex-shrink: 0;
-}
 .nav__brand-text { display: flex; flex-direction: column; line-height: 1.2; }
 .nav__name { font-family: var(--font-display); font-weight: 700; font-size: .95rem; }
 .nav__role { font-size: .68rem; color: var(--color-muted); }
