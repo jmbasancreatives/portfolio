@@ -12,6 +12,254 @@
 
   <link rel="stylesheet" href="style.css">
 </head>
+
+  <!-- Embedded Loading Screen -->
+<style>
+  body.is-loading {
+    overflow: hidden;
+  }
+
+  #tech-loader {
+    --cyan: #38e8ff;
+    --blue: #4f7cff;
+    --violet: #9b5cff;
+
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: grid;
+    place-items: center;
+    color: #eafaff;
+    background:
+      radial-gradient(circle at center, rgba(79, 124, 255, 0.18), transparent 38%),
+      #050816;
+    font-family: Arial, sans-serif;
+    transition:
+      opacity 0.6s ease,
+      visibility 0.6s ease;
+  }
+
+  #tech-loader::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.25;
+    background-image:
+      linear-gradient(rgba(56, 232, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56, 232, 255, 0.1) 1px, transparent 1px);
+    background-size: 42px 42px;
+    animation: loaderGrid 6s linear infinite;
+  }
+
+  #tech-loader.loader-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .loader-panel {
+    position: relative;
+    width: min(85%, 460px);
+    padding: 40px 32px;
+    text-align: center;
+    border: 1px solid rgba(56, 232, 255, 0.25);
+    border-radius: 24px;
+    background: rgba(8, 14, 34, 0.82);
+    box-shadow:
+      0 0 70px rgba(56, 232, 255, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(15px);
+  }
+
+  .loader-core {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 25px;
+  }
+
+  .loader-core::before,
+  .loader-core::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(56, 232, 255, 0.3);
+    border-top: 3px solid var(--cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(56, 232, 255, 0.25);
+    animation: loaderSpin 2.2s linear infinite;
+  }
+
+  .loader-core::after {
+    inset: 11px;
+    border-top-color: var(--violet);
+    border-bottom: 3px solid var(--blue);
+    animation-direction: reverse;
+    animation-duration: 1.6s;
+  }
+
+  .loader-photo {
+    position: relative;
+    z-index: 1;
+    width: 78px;
+    height: 78px;
+    object-fit: cover;
+    object-position: center 30%;
+    border: 2px solid #eafaff;
+    border-radius: 50%;
+    box-shadow: 0 0 25px rgba(56, 232, 255, 0.6);
+  }
+
+  .loader-label {
+    margin: 0 0 8px;
+    color: var(--cyan);
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .loader-panel h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(25px, 5vw, 36px);
+  }
+
+  #loader-status {
+    min-height: 20px;
+    margin: 12px 0 25px;
+    color: #8296b2;
+    font-family: monospace;
+    font-size: 12px;
+  }
+
+  .loader-progress {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .loader-track {
+    flex: 1;
+    height: 6px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  #loader-bar {
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--blue), var(--cyan));
+    box-shadow: 0 0 18px rgba(56, 232, 255, 0.8);
+    transition: width 0.15s ease;
+  }
+
+  #loader-percent {
+    width: 42px;
+    color: var(--cyan);
+    font-family: monospace;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: right;
+  }
+
+  @keyframes loaderSpin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes loaderGrid {
+    to {
+      background-position: 42px 42px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #tech-loader::before,
+    .loader-core::before,
+    .loader-core::after {
+      animation: none;
+    }
+  }
+</style>
+
+<div id="tech-loader" role="status" aria-label="Loading portfolio">
+  <div class="loader-panel">
+    <div class="loader-core">
+      <img
+        src="loading-profile.png"
+        alt="Jan Mark Basan"
+        class="loader-photo"
+      >
+    </div>
+
+    <p class="loader-label">System Online</p>
+    <h2>Loading Portfolio</h2>
+    <p id="loader-status">Initializing workspace...</p>
+
+    <div class="loader-progress">
+      <div class="loader-track">
+        <div id="loader-bar"></div>
+      </div>
+
+      <span id="loader-percent">0%</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.body.classList.add("is-loading");
+
+  const techLoader = document.getElementById("tech-loader");
+  const loaderBar = document.getElementById("loader-bar");
+  const loaderPercent = document.getElementById("loader-percent");
+  const loaderStatus = document.getElementById("loader-status");
+
+  const loaderMessages = [
+    "Initializing workspace...",
+    "Loading experience modules...",
+    "Connecting creative systems...",
+    "Finalizing interface...",
+    "Welcome!"
+  ];
+
+  let loadingProgress = 0;
+
+  const loadingInterval = setInterval(() => {
+    loadingProgress += Math.floor(Math.random() * 8) + 2;
+    loadingProgress = Math.min(loadingProgress, 100);
+
+    loaderBar.style.width = loadingProgress + "%";
+    loaderPercent.textContent = loadingProgress + "%";
+
+    if (loadingProgress >= 80) {
+      loaderStatus.textContent = loaderMessages[3];
+    } else if (loadingProgress >= 55) {
+      loaderStatus.textContent = loaderMessages[2];
+    } else if (loadingProgress >= 25) {
+      loaderStatus.textContent = loaderMessages[1];
+    }
+
+    if (loadingProgress === 100) {
+      clearInterval(loadingInterval);
+      loaderStatus.textContent = loaderMessages[4];
+
+      setTimeout(() => {
+        techLoader.classList.add("loader-hidden");
+        document.body.classList.remove("is-loading");
+
+        setTimeout(() => techLoader.remove(), 700);
+      }, 400);
+    }
+  }, 120);
+</script>
+  
 <body>
 
   <!-- ============ NAV ============ -->
